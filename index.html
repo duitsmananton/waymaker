@@ -132,6 +132,72 @@ li:before{content:"";width:10px;height:10px;flex:0 0 10px;margin-top:.35em;borde
   }
 }
 
+
+/* ===== Locked Hero + Scrollable Content Architecture ===== */
+
+/* Keep the hero and tabs fixed within the frame */
+.app{
+  overflow:hidden !important;
+}
+
+/* The lower content region becomes the only scrolling area */
+.panels{
+  overflow:hidden !important;
+  min-height:0;
+}
+
+.panel{
+  height:100%;
+  overflow:hidden;
+}
+
+.panel.active{
+  display:block;
+  height:100%;
+}
+
+/* Every active card scrolls internally */
+.panel.active .card{
+  height:100%;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.panel.active .content,
+.panel.active .single{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-right:10px;
+  scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+}
+
+.panel.active .content::-webkit-scrollbar,
+.panel.active .single::-webkit-scrollbar{
+  width:8px;
+}
+
+.panel.active .content::-webkit-scrollbar-thumb,
+.panel.active .single::-webkit-scrollbar-thumb{
+  background:rgba(216,180,95,.35);
+  border-radius:999px;
+}
+
+/* Prevent the hero from ever scrolling */
+.hero,
+.tablist{
+  flex-shrink:0;
+}
+
+@media (max-width:760px){
+  .panel.active .content{
+    display:block;
+  }
+}
+
 </style>
 </head>
 <body>
